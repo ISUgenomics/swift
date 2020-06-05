@@ -7,13 +7,8 @@
 import Foundation
 
 
-
-
-
 var stderr = StandardErrorOutputStream()
 var stdout = StandardOutputStream()
-
-
 
 if CommandLine.arguments.count < 2 {
     print("Please provide the fasta file as input", to: &stderr)
@@ -22,57 +17,26 @@ if CommandLine.arguments.count < 2 {
 
 
 let path = CommandLine.arguments[1]
-//let path = "/Users/severin/swift/LearningSwift/commandLine/Hello/Sources/Bio/example3.fasta"
-//let path = "/Users/severin/Downloads/Halruf.fasta"
-// set file that we want to read.
-//let reader = LineReader(path: "/Users/severin/swift/LearningSwift/commandLine/Hello/Sources/Bio/example3.fasta")
 let reader = LineReader(path: path)
 
 // create a struct to hold the fasta sequences with functions for GC content and def and seq variables
-struct fasta { //: Comparable {
-//    static func < (lhs: fasta, rhs: fasta) -> Bool {
-//        lhs.length() < rhs.length()
-//    }
-//    static func == (lhs: fasta, rhs: fasta) -> Bool {
-//        lhs.length() == rhs.length()
-//    }
-//    static func > (lhs: fasta, rhs: fasta) -> Bool {
-//        lhs.length() > rhs.length()
-//    }
+struct fasta { 
     // variables for the definition and Sequence lines of the fasta and nucleotid count
-    // the nucleotide counts ATCGN will not be set on first call of this struct but subsequent calls
-    // there fore you should first create an empty fasta struct then populate it.
-    // var createfasta = fasta(def: "", seq: "")
     var A: Int = 0
     var T: Int = 0
     var C: Int = 0
     var G: Int = 0
     var N: Int = 0
     var def: String
-    //var seq: String
-    // Function to get the length of the sequence
-    var length = 0
+    var length = 0  // Function to get the length of the sequence
+//    var seq: String
 //    func length() -> Int {
 //        return seq.count
 //    }
 }
 
-
-
-//create an empty array of fasta structs to hold the sequences from the FASTA file
-var fastas: [fasta] = [fasta]()
-
-// store the fasta struct number, this way we can append all the sequence to the seq variable corresponding to the current fastaNum struct.
-var fastaNum = -1
-
-//let concurrentQueue = DispatchQueue(label: "swift.concurrent.queue", attributes: .concurrent)
-
-
-
-// this uses the lineReader class defined at the end in CLASSES, reads in each line and then places the sequence into the fasta struct and then appends to fastas array of fasta structs
-//let queue = DispatchQueue(label: "com.company.app.queue", attributes: .concurrent)
-
-
+var fastas: [fasta] = [fasta]()  //create an empty array of fasta structs to hold the sequences from the FASTA file
+var fastaNum = -1  // store the fasta struct number, this way we can append all the sequence to the seq variable corresponding to the current fastaNum struct.
 
 reader?.forEach { line in
     
@@ -89,7 +53,7 @@ reader?.forEach { line in
         print(line)
     } else {
         
- //       let group = DispatchGroup()
+ //      let group = DispatchGroup()
         
 //        group.enter()
 //        DispatchQueue.global(qos: .userInteractive).async() {
@@ -132,24 +96,17 @@ reader?.forEach { line in
 //        group.wait()
         
     }
-    
-    
-
-
 }
-let numScaffs = fastas.count
-// This sorts the fastas array of structs by length replacing the original ordering.
+
+let numScaffs = fastas.count  // get the total number of scaffolds/fasta entries in the fasta file
+
 if numScaffs > 1 {  // verify that there is something to sort.
-fastas.sort(by: {
+fastas.sort(by: {  // This sorts the fastas array of structs by length replacing the original ordering.
     $0.length > $1.length
 })
 }
 
-
-
-
-
-let fastaLengths = fastas.map( {$0.length})
+let fastaLengths = fastas.map( {$0.length})  // Calculate the sum of the fasta lengths
 //print(fastaLengths)
 // here is a filter inside of a map, filter for all G characters that are mapped to create get a string of Gs but then just count the Gs and then create an array of G counts for all fasta in fastas then take the sum.
 //for fasta in fastas {
