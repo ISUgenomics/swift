@@ -1,0 +1,10 @@
+
+if [[ `module list 2> /dev/stdout | perl -pe 's/ /\n/g' | perl -pe 's/\//\n/g' | grep singularity` == singularity ]] 
+then 
+echo "singularity loaded"
+singularity exec --bind /work/gif/software/swift/bin /work/gif/software/swift/swift_latest.sif swift $@
+else
+echo "loading singularity"
+module load singularity
+singularity exec --bind /work/gif/software/swift/bin /work/gif/software/swift/swift_latest.sif swift $@
+fi
