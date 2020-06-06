@@ -1,5 +1,5 @@
 //  File.swift
-//  
+//
 //
 //  Created by Andrew J Severin on 5/29/20.
 //
@@ -20,13 +20,8 @@ let path = CommandLine.arguments[1]
 let reader = LineReader(path: path)
 
 // create a struct to hold the fasta sequences with functions for GC content and def and seq variables
-struct fasta { 
+struct fasta {
     // variables for the definition and Sequence lines of the fasta and nucleotid count
-    var A: Int = 0
-    var T: Int = 0
-    var C: Int = 0
-    var G: Int = 0
-    var N: Int = 0
     var def: String
     var length = 0  // Function to get the length of the sequence
 //    var seq: String
@@ -39,7 +34,7 @@ var fastas: [fasta] = [fasta]()  //create an empty array of fasta structs to hol
 var fastaNum = -1  // store the fasta struct number, this way we can append all the sequence to the seq variable corresponding to the current fastaNum struct.
 
 reader?.forEach { line in
-    
+
     if line.starts(with: ">") {
         //create an empty fasta struct
          var createfasta = fasta(def: "") //, seq: "")
@@ -52,16 +47,16 @@ reader?.forEach { line in
         // print the lines that are comments
         print(line)
     } else {
-        
+
  //      let group = DispatchGroup()
-        
+
 //        group.enter()
 //        DispatchQueue.global(qos: .userInteractive).async() {
 //        fastas[fastaNum].N += line.filter { $0 == "N"}.count
 //        group.leave()
 //
 //        }
-        
+
 //        group.enter()
 //        DispatchQueue.global(qos: .userInteractive).async() {
         fastas[fastaNum].length += line.trimmingCharacters(in: .whitespacesAndNewlines).count
@@ -94,7 +89,7 @@ reader?.forEach { line in
 //        }
 
 //        group.wait()
-        
+
     }
 }
 
@@ -185,7 +180,7 @@ func calculateMedian(array: [Int], isSorted: Bool) -> Float {
     if isSorted == false {
         sorted = array.sorted()
     }
-    
+
     if sorted.count % 2 == 0 {
         return Float((sorted[(sorted.count / 2)] + sorted[(sorted.count / 2) - 1])) / 2
     } else {
@@ -333,7 +328,3 @@ final class StandardOutputStream: TextOutputStream {
         FileHandle.standardOutput.write(Data(string.utf8))
     }
 }
-
-
-
-
