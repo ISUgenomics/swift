@@ -22,6 +22,11 @@ let reader = LineReader(path: path)
 // create a struct to hold the fasta sequences with functions for GC content and def and seq variables
 struct fasta {
     // variables for the definition and Sequence lines of the fasta and nucleotid count
+    var A: Int = 0
+    var T: Int = 0
+    var C: Int = 0
+    var G: Int = 0
+    var N: Int = 0
     var def: String
     var length = 0  // Function to get the length of the sequence
 //    var seq: String
