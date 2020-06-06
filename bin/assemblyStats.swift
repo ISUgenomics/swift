@@ -22,17 +22,8 @@ let reader = LineReader(path: path)
 // create a struct to hold the fasta sequences with functions for GC content and def and seq variables
 struct fasta { 
     // variables for the definition and Sequence lines of the fasta and nucleotid count
-    var A: Int = 0
-    var T: Int = 0
-    var C: Int = 0
-    var G: Int = 0
-    var N: Int = 0
     var def: String
     var length = 0  // Function to get the length of the sequence
-//    var seq: String
-//    func length() -> Int {
-//        return seq.count
-//    }
 }
 
 var fastas: [fasta] = [fasta]()  //create an empty array of fasta structs to hold the sequences from the FASTA file
@@ -53,50 +44,12 @@ reader?.forEach { line in
         print(line)
     } else {
         
- //      let group = DispatchGroup()
-        
-//        group.enter()
-//        DispatchQueue.global(qos: .userInteractive).async() {
-//        fastas[fastaNum].N += line.filter { $0 == "N"}.count
-//        group.leave()
-//
-//        }
-        
-//        group.enter()
-//        DispatchQueue.global(qos: .userInteractive).async() {
-        fastas[fastaNum].length += line.trimmingCharacters(in: .whitespacesAndNewlines).count
-        //fastas[fastaNum].seq += line.trimmingCharacters(in: .whitespacesAndNewlines)
-//        group.leave()
-//        }
-//
-//        group.enter()
-//        DispatchQueue.global(qos: .userInteractive).async() {
-//        fastas[fastaNum].G += line.filter { $0 == "G"}.count
-//        group.leave()
-//        }
-//
-//        group.enter()
-//        DispatchQueue.global(qos: .userInteractive).async() {
-//        fastas[fastaNum].A += line.filter { $0 == "A"}.count
-//        group.leave()
-//        }
-//
-//        group.enter()
-//        DispatchQueue.global(qos: .userInteractive).async() {
-//        fastas[fastaNum].C += line.filter { $0 == "C"}.count
-//        group.leave()
-//        }
-//
-//        group.enter()
-//        DispatchQueue.global(qos: .userInteractive).async() {
-//        fastas[fastaNum].T += line.filter { $0 == "T"}.count
-//        group.leave()
-//        }
 
-//        group.wait()
-        
+        fastas[fastaNum].length += line.trimmingCharacters(in: .whitespacesAndNewlines).count
     }
 }
+
+
 
 let numScaffs = fastas.count  // get the total number of scaffolds/fasta entries in the fasta file
 
@@ -107,21 +60,6 @@ fastas.sort(by: {  // This sorts the fastas array of structs by length replacing
 }
 
 let fastaLengths = fastas.map( {$0.length})  // Calculate the sum of the fasta lengths
-//print(fastaLengths)
-// here is a filter inside of a map, filter for all G characters that are mapped to create get a string of Gs but then just count the Gs and then create an array of G counts for all fasta in fastas then take the sum.
-//for fasta in fastas {
-//fasta.G = fasta.seq.filter { $0 == "G"}.count
-//
-//}
-
-//let Gcount = fastas.map  { $0.seq.filter { $0 == "G"}.count }.sum()
-//    N = self.seq.filter { $0 == "N" }.count
-//    A = self.seq.filter { $0 == "A" }.count
-//    T = self.seq.filter { $0 == "T" }.count
-//    C = self.seq.filter { $0 == "C" }.count
-//}
-
-
 
 var NumScaffsLess1KA = fastaLengths.indices.filter({ fastaLengths[$0] < 1000})
 let NumScaffsLess1K = NumScaffsLess1KA.count
@@ -238,14 +176,6 @@ print("Number of Scaffolds [10K-100K) nt    ",NumScaffsGtr10K,"\t",percentOfTota
 print("Number of Scaffolds [100K-1M) nt     ",NumScaffsGtr100K,"\t",percentOfTotal(count: NumScaffsGtr100K,totalCount: fastas.count),"% \t",NcountScaffsGtr100K,"\t",percentOfTotal(count: NcountScaffsGtr100K,totalCount: totalNucleotideContent),"%")
 print("Number of Scaffolds [1M-10M) nt      ",NumScaffsGtr1M,"\t",percentOfTotal(count: NumScaffsGtr1M,totalCount: fastas.count),"% \t",NcountScaffsGtr1M,"\t",percentOfTotal(count: NcountScaffsGtr1M,totalCount: totalNucleotideContent),"%")
 print("Number of Scaffolds > 10M nt         ",NumScaffsGtr10M,"\t",percentOfTotal(count: NumScaffsGtr10M,totalCount: fastas.count),"% \t",NcountScaffsGtr10M,"\t",percentOfTotal(count: NcountScaffsGtr10M,totalCount: totalNucleotideContent),"%")
-
-//print("                                     ","%A\t %T\t %G \t %C \t %N")
-//print("                                    ", percentOfTotal(count: Acontent,totalCount: totalNucleotideContent),"\t",percentOfTotal(count: Tcontent,totalCount: totalNucleotideContent),"\t",percentOfTotal(count: Gcontent,totalCount: totalNucleotideContent),"\t",percentOfTotal(count: Ccontent,totalCount: totalNucleotideContent),"\t",percentOfTotal(count: Ncontent,totalCount: totalNucleotideContent),"\t")
-//
-
-
-
-
 
 
 //EXTENSIONS
