@@ -22,7 +22,8 @@ import Foundation
 
     // create a struct to hold the fasta sequences with functions for GC content and def and seq variables
     struct fasta {
-        // variables for the definition and Sequence lines of the fasta and nucleotid count
+
+        // variables for the definition and Sequence lines of the fasta and nucleotide count
         var def: String
         var length = 0  // Function to get the length of the sequence
     }
