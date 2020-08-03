@@ -1,1 +1,6 @@
-swift /work/gif/software/swift/bin/fastaSplit.swift $@
+#!/bin/bash
+
+export swiftLOC=$(which swift)
+export binDir=$(dirname $swiftLOC)
+echo $binDir
+swift ${binDir}/fastaSplit.swift $@
